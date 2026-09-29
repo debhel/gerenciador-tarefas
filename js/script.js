@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     const formTarefa = document.getElementById('formTarefa');
     const listaTarefas = document.getElementById('listaTarefas');
+    const tarefasExistentes = document.querySelector(".tarefasExistentes");
     let vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
     function salvarDados(){
@@ -8,14 +9,37 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function exibirTarefa(){
+
+        if(vetorTarefas.length == 0 && document.getElementById('semTarefa') == null){
+            let addTexto = document.createElement('p');
+            
+            addTexto.setAttribute("id", "semTarefa");
+            addTexto.textContent = "Nenhuma tarefa foi cadastrada";
+            
+            tarefasExistentes.appendChild(addTexto);
+        }else{
+            if(vetorTarefas.length > 0 && document.getElementById('semTarefa') != null){
+                document.getElementById('semTarefa').remove();
+            }
+        }
+        
+        listaTarefas.innerHTML = "";
+
         for(let r = 0; r < vetorTarefas.length; r++){
             const addLi = document.createElement('li');
             const vetorPosicao = vetorTarefas[r];
+            let status;
+
+            if(vetorPosicao.situacao == false){
+                status = "Pendente";
+            }else{
+                status = "Concluída";
+            }
         
             addLi.textContent = vetorPosicao.descricao + " " + 
             vetorPosicao.categoria + " " + vetorPosicao.prioridade + " " + 
-            vetorPosicao.prazo + " " + vetorPosicao.situacao;
-        
+            vetorPosicao.prazo + " " + status;
+
             listaTarefas.appendChild(addLi);
         }
     }
@@ -41,5 +65,6 @@ document.addEventListener("DOMContentLoaded", function(){
         vetorTarefas.push(objetoTarefa);
         salvarDados();
         exibirTarefa();
+        formTarefa.reset();
     });
 });
