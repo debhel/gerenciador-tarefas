@@ -1,21 +1,26 @@
-let vetorTarefas = []; //a função salvarDados não tava pegando a variavel por estar fora do DOMContentLoaded
-
-function salvarDados(){
-    localStorage.setItem("tarefas", JSON.stringify(vetorTarefas));
-}
-
 document.addEventListener("DOMContentLoaded", function(){
     const formTarefa = document.getElementById('formTarefa');
     const listaTarefas = document.getElementById('listaTarefas');
-    
-    console.log("Antes de carregar:", vetorTarefas);
-    console.log("O que está no localStorage:",
-        localStorage.getItem("tarefas")
-    );
+    let vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
-    vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+    function salvarDados(){
+        localStorage.setItem("tarefas", JSON.stringify(vetorTarefas));
+    }
 
-    console.log("Depois de carregar:", vetorTarefas);
+    function exibirTarefa(){
+        for(let r = 0; r < vetorTarefas.length; r++){
+            const addLi = document.createElement('li');
+            const vetorPosicao = vetorTarefas[r];
+        
+            addLi.textContent = vetorPosicao.descricao + " " + 
+            vetorPosicao.categoria + " " + vetorPosicao.prioridade + " " + 
+            vetorPosicao.prazo + " " + vetorPosicao.situacao;
+        
+            listaTarefas.appendChild(addLi);
+        }
+    }
+
+    exibirTarefa();
 
     formTarefa.addEventListener('submit', function(e){
         e.preventDefault();
@@ -35,5 +40,6 @@ document.addEventListener("DOMContentLoaded", function(){
         
         vetorTarefas.push(objetoTarefa);
         salvarDados();
+        exibirTarefa();
     });
 });
