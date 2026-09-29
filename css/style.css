@@ -1,3 +1,10 @@
 .addTarefas{
-    border: 1px solid black; /* só pra visualizar o tamanho que o section ta ocupando */
+    border: 1px solid black; 
+    padding: 5px;
+}
+
+#formularioTarefa{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
