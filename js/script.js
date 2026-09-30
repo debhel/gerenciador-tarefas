@@ -8,7 +8,22 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("tarefas", JSON.stringify(vetorTarefas));
     }
 
-    function exibirTarefa(){
+    const excluirTarefa = function excluirTarefa(e){
+        let tarefaID = e.target.id;
+        let recebeR = 0; 
+        
+        for(let r = 0; r< vetorTarefas.length; r++){
+            if(vetorTarefas[r].id == tarefaID){
+                recebeR = r;
+                break;
+            }
+        }
+        vetorTarefas.splice(recebeR,1);
+        salvarDados();
+        exibirTarefas();
+    }
+
+    function exibirTarefas(){
 
         if(vetorTarefas.length == 0 && document.getElementById('semTarefa') == null){
             let addTexto = document.createElement('p');
@@ -27,8 +42,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
         for(let r = 0; r < vetorTarefas.length; r++){
             const addLi = document.createElement('li');
+            const addBotao = document.createElement('button');
             const vetorPosicao = vetorTarefas[r];
             let status;
+
+            addBotao.setAttribute("id", vetorTarefas[r].id);
 
             if(vetorPosicao.situacao == false){
                 status = "Pendente";
@@ -39,12 +57,16 @@ document.addEventListener("DOMContentLoaded", function(){
             addLi.textContent = vetorPosicao.descricao + " " + 
             vetorPosicao.categoria + " " + vetorPosicao.prioridade + " " + 
             vetorPosicao.prazo + " " + status;
+            addBotao.textContent = "X";
+
+            addBotao.addEventListener("click", excluirTarefa);
 
             listaTarefas.appendChild(addLi);
+            addLi.appendChild(addBotao);
         }
     }
 
-    exibirTarefa();
+    exibirTarefas();
 
     formTarefa.addEventListener('submit', function(e){
         e.preventDefault();
@@ -53,18 +75,20 @@ document.addEventListener("DOMContentLoaded", function(){
         const categoria = document.getElementById('categoria').value;
         const prioridade = document.getElementById('prioridade').value;
         const prazo = document.getElementById('prazo').value;
+        const idTarefa = crypto.randomUUID();
 
         const objetoTarefa = {
             descricao: descricao,
             categoria: categoria,
             prioridade: prioridade,
             prazo: prazo,
-            situacao: false
+            situacao: false,
+            id: idTarefa
         }
         
         vetorTarefas.push(objetoTarefa);
         salvarDados();
-        exibirTarefa();
+        exibirTarefas();
         formTarefa.reset();
     });
 });
