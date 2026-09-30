@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const excluirTarefa = function excluirTarefa(e){
         let tarefaID = e.target.id;
-        let recebeR = 0; 
-        
-        for(let r = 0; r< vetorTarefas.length; r++){
+        let recebeR = 0;
+
+        for(let r = 0; r < vetorTarefas.length; r++){
             if(vetorTarefas[r].id == tarefaID){
                 recebeR = r;
                 break;
@@ -42,27 +42,39 @@ document.addEventListener("DOMContentLoaded", function(){
 
         for(let r = 0; r < vetorTarefas.length; r++){
             const addLi = document.createElement('li');
-            const addBotao = document.createElement('button');
+            const botaoExcluir = document.createElement('button');
+            const botaoConcluir = document.createElement('button');
             const vetorPosicao = vetorTarefas[r];
             let status;
 
-            addBotao.setAttribute("id", vetorTarefas[r].id);
+            botaoExcluir.setAttribute("id", vetorTarefas[r].id);
+            botaoConcluir.setAttribute("id", vetorTarefas[r].id);
 
             if(vetorPosicao.situacao == false){
                 status = "Pendente";
             }else{
-                status = "Concluída";
+                status = "Concluida";
             }
-        
-            addLi.textContent = vetorPosicao.descricao + " " + 
-            vetorPosicao.categoria + " " + vetorPosicao.prioridade + " " + 
-            vetorPosicao.prazo + " " + status;
-            addBotao.textContent = "X";
 
-            addBotao.addEventListener("click", excluirTarefa);
+            addLi.textContent = vetorPosicao.descricao + " \u2022 " + 
+            vetorPosicao.categoria + " Prioridade: " + vetorPosicao.prioridade + " " + 
+            vetorPosicao.prazo + " " + status;
+            botaoConcluir.textContent = "Concluir";
+            botaoExcluir.textContent = "Excluir";
 
             listaTarefas.appendChild(addLi);
-            addLi.appendChild(addBotao);
+            addLi.appendChild(botaoConcluir);
+            addLi.appendChild(botaoExcluir);
+
+            botaoExcluir.addEventListener("click", excluirTarefa);
+            botaoConcluir.addEventListener("click", function(e){
+                    vetorPosicao.situacao = true;
+
+                    addLi.removeChild(botaoConcluir);
+
+                    salvarDados();
+                    exibirTarefas();
+            });
         }
     }
 
