@@ -5,19 +5,21 @@ document.addEventListener("DOMContentLoaded", function(){
     const fSituacao = document.getElementById('filtroSituacao');
     const fCategoria = document.getElementById('filtroCategoria');
 
+    let vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
     fSituacao.addEventListener('change', function(e){
-        console.log(fSituacao.value);
+        console.log(fSituacao.value);                //testando
     });
 
     fCategoria.addEventListener('change', function(e){
-        console.log(fCategoria.value);
+        console.log(fCategoria.value);               //testando
     });
-
-    let vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
     function salvarDados(){
         localStorage.setItem("tarefas", JSON.stringify(vetorTarefas));
     }
+
+    exibirTarefas();
 
     const excluirTarefa = function excluirTarefa(e){
         let tarefaID = e.target.id;
