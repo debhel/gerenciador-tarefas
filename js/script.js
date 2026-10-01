@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let addTexto = document.createElement('p');
             
             addTexto.setAttribute("id", "semTarefa");
-            addTexto.textContent = "Nenhuma tarefa foi cadastrada";
+            addTexto.textContent = "Nenhuma tarefa está cadastrada";
             
             tarefasExistentes.appendChild(addTexto);
         }else{
@@ -68,10 +68,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
             botaoExcluir.addEventListener("click", excluirTarefa);
             botaoConcluir.addEventListener("click", function(e){
+                
+                if(vetorPosicao.situacao == false){
                     vetorPosicao.situacao = true;
-
-                    addLi.removeChild(botaoConcluir);
-
+                    botaoConcluir.textContent = "Desmarcar";
+                }else{
+                    vetorPosicao.situacao = false;
+                }
                     salvarDados();
                     exibirTarefas();
             });
