@@ -2,6 +2,17 @@ document.addEventListener("DOMContentLoaded", function(){
     const formTarefa = document.getElementById('formTarefa');
     const listaTarefas = document.getElementById('listaTarefas');
     const tarefasExistentes = document.querySelector(".tarefasExistentes");
+    const fSituacao = document.getElementById('filtroSituacao');
+    const fCategoria = document.getElementById('filtroCategoria');
+
+    fSituacao.addEventListener('change', function(e){
+        console.log(fSituacao.value);
+    });
+
+    fCategoria.addEventListener('change', function(e){
+        console.log(fCategoria.value);
+    });
+
     let vetorTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
     function salvarDados(){
@@ -22,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function(){
         salvarDados();
         exibirTarefas();
     }
+
+   /* function filtrarTarefas(){
+        desenvolver a função dos filtros
+    }*/
 
     function exibirTarefas(){
 

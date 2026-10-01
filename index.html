@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer></script>
 </head>
-<body>
+<body class="body">
     <main>
         <h1>Gerenciador de Tarefas</h1> <!-- espaço pro nome da aplicação -->
         <p>Organize a sua semana!</p> <!-- colocar alguma frase relacionada a organização para a estética -->
@@ -24,7 +24,7 @@
                     <option value="trabalho">Trabalho</option>
                     <option value="estudos">Estudos</option>
                     <option value="compras">Compras</option>
-                    <option value="casa">Tarefas da casa</option>
+                    <option value="casa">Casa</option>
                     <option value="pessoal">Pessoal</option>
                 </select>
 
@@ -38,12 +38,29 @@
                 <label>Prazo:</label>
                 <input type="date" name="prazo" id="prazo">
 
-                <button type="submit" id="adicionar">+ Adicionar tarefa</button>
+                <button type="submit" id="adicionar">+ A
+                    dicionar tarefa</button>
             </form>
         </section>
         
         <section class="tarefasExistentes">
             <h2>Minhas Tarefas</h2>
+
+            <label>Situação:</label>
+            <select name="filtroSituacao" id="filtroSituacao">
+                <option>Todas</option>
+                <option>Pendentes</option>
+                <option>Concluídas</option>
+            </select>
+
+            <label>Categoria:</label>
+            <select name="filtroCategoria" id="filtroCategoria">
+                <option value="trabalho">Trabalho</option>
+                <option value="estudos">Estudos</option>
+                <option value="compras">Compras</option>
+                <option value="casa">Casa</option>
+                <option value="pessoal">Pessoal</option>
+            </select>
 
             <ul id="listaTarefas">
 

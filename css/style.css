@@ -1,6 +1,7 @@
-.addTarefas{
+.body section{
     border: 1px solid black; 
     padding: 5px;
+    margin: 15px 5px;
 }
 
 #formTarefa{
